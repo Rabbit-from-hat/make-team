@@ -1,6 +1,7 @@
 import discord
+import os
 
-token = "NjEyNDk2ODkzMjg0NzEyNDYz.XWUFLA.YC9l8WXVduCmmwQ3hBlZXj46das"
+token = os.environ['DISCORD_BOT_TOKEN']
 
 client = discord.Client()
 
@@ -25,6 +26,5 @@ async def on_message(message):
             # メッセージが送られてきたチャンネルへメッセージを送ります
             await message.channel.send(m)
             
-
 # botの接続と起動
 client.run(token)
