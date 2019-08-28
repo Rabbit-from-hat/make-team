@@ -23,7 +23,7 @@ async def on_message(message):
         state = message.author.voice
 
         if state is None: #依頼主自身がVoiceChannelにいないとき
-            await message.channel.send("実行できません" + message.author.name + "さん、該当のVCへ入ってください")
+            await message.channel.send("実行できません。" + message.author.name + "さん、該当のVCへ入ってください！")
         else:
             tmp = [i.name for i in state.channel.members] #VCメンバリスト取得
             await message.channel.send("\n".join(tmp))
