@@ -8,7 +8,7 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
-    """起動時に通知してくれる処理"""
+    """起動処理"""
     print('-----Logged in info-----')
     print(client.user.name)
     print(client.user.id)
@@ -17,15 +17,16 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    """メッセージを処理"""
-    # 「おはよう」で始まるか調べる
-    if message.content.startswith("おはよう"):
-        # 送り主がBotだった場合反応したくないので
-        if client.user != message.author:
-            # メッセージを書きます
-            m = "おはようございます" + message.author.name + "さん！"
-            # メッセージが送られてきたチャンネルへメッセージを送ります
-            await message.channel.send(m)
+    """メッセージ処理"""
+    # チーム作成依頼
+    if message.content.startswith("/team"):
+        state = message.author.voice #voicestateを取得
+
+        if state is None: #VoiceChannelにいないとき
+           await message.channel.send("VCにいません")
+        else:
+            tmp = [i.name for i in state.channel.members] #メンバー名のリスト
+            await message.channel.send("\n".join(tmp))
             
 # botの接続と起動
 client.run(token)
