@@ -20,12 +20,12 @@ async def on_message(message):
     """メッセージ処理"""
     # チーム作成依頼
     if message.content.startswith("/team"):
-        state = message.author.voice #voicestateを取得
+        state = message.author.voice
 
-        if state is None: #VoiceChannelにいないとき
-           await message.channel.send("VCにいません")
+        if state is None: #依頼主自身がVoiceChannelにいないとき
+            await message.channel.send("実行できません" + message.author.name + "さん、該当のVCへ入ってください")
         else:
-            tmp = [i.name for i in state.channel.members] #メンバー名のリスト
+            tmp = [i.name for i in state.channel.members] #VCメンバリスト取得
             await message.channel.send("\n".join(tmp))
             
 # botの接続と起動
