@@ -1,6 +1,8 @@
 import discord
 import os
 import traceback
+import random
+import team
 
 token = os.environ['DISCORD_BOT_TOKEN']
 
@@ -18,15 +20,14 @@ async def on_ready():
 @client.event
 async def on_message(message):
     """メッセージ処理"""
-    # チーム作成依頼
+    # チーム作成
     if message.content.startswith("/team"):
         state = message.author.voice
 
         if state is None: #依頼主自身がVoiceChannelにいないとき
             await message.channel.send("実行できません。" + message.author.name + "さん、該当のVCへ入ってください！")
         else:
-            tmp = [i.name for i in state.channel.members] #VCメンバリスト取得
-            await message.channel.send("\n".join(tmp))
+            team.team_shuffle(message)
             
 # botの接続と起動
 client.run(token)
