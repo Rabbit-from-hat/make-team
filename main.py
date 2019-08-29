@@ -2,7 +2,6 @@ import discord
 import os
 import traceback
 import random
-import team
 
 token = os.environ['DISCORD_BOT_TOKEN']
 
@@ -27,7 +26,9 @@ async def on_message(message):
         if state is None: #依頼主自身がVoiceChannelにいないとき
             await message.channel.send("実行できません。" + message.author.name + "さん、該当のVCへ入ってください！")
         else:
-            team.team_shuffle(message)
+            channel_mem = [i.name for i in state.channel.members] #VCメンバリスト取得
+            random.shuffle(channel_mem)
+            await message.channel.send("\n".join(channel_mem))
             
 # botの接続と起動
 client.run(token)
