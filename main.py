@@ -17,12 +17,12 @@ async def on_ready():
     print('------------------------')
 
 @bot.command()
-async def team(ctx, party_num:int): #チーム作成
-    try:
+async def team(ctx, *party_num:int): #チーム作成
+    if not party_num:
+        await ctx.channel.send("チーム数を指定してください。")
+    else:
         msg = grouping.default_make(ctx, party_num)
         await ctx.channel.send(msg)
-    except Exception as e:
-        await ctx.channel.send(str(e))
             
 # botの接続と起動
 bot.run(token)
