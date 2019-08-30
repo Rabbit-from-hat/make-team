@@ -2,9 +2,8 @@ import discord
 from discord.ext import commands
 import random
 
-def default_make(ctx, *party_num):
+def default_make(ctx, party_num):
 
-    print(party_num)
     if not party_num: #引数が指定されていない場合
         return 'チーム数を指定してください。'
 
