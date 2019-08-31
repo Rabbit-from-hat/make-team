@@ -1,5 +1,5 @@
 
-def team_msg(team,num):
+def team_msg(team, num:int):
     msg = []
 
     for line in team:
