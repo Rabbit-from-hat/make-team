@@ -11,11 +11,11 @@
 def team_msg(team, num:int):
     msg = []
 
-    for line in team: 
-        msg.append("チーム"+ str(num))
-        for mem in line:
-            msg.append(mem)
-        num -= 1
+    for i in range(num):
+        msg.append("チーム"+str(i+1))
+        for line in team: 
+            for mem in line:
+                msg.append(mem)
 
     msg = "\n".join(msg)
     return msg
