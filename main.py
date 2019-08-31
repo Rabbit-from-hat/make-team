@@ -3,6 +3,7 @@ from discord.ext import commands
 import os
 import traceback
 import grouping
+import make_msg
 
 token = os.environ['DISCORD_BOT_TOKEN']
 bot = commands.Bot(command_prefix='/')
@@ -19,7 +20,8 @@ async def on_ready():
 @bot.command()
 async def team(ctx, party_num=2): #チーム作成
         party_team = grouping.default_make(ctx, party_num)
-        print(party_team)
+        msg = make_msg.team_msg(party_team,party_num)
+        await ctx.channel.send(msg)
             
 # botの接続と起動
 bot.run(token)
