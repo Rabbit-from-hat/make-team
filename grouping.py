@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random
+import make_msg 
 
 def default_make(ctx, party_num):
     team = []
@@ -25,5 +26,6 @@ def default_make(ctx, party_num):
         team.append(channel_mem[i:mem_len:party_num])
 
     team.append(remainder) #余剰分のメンバーを追加
+    msg = make_msg.team_msg(team,party_num)
 
-    return team
+    return msg
