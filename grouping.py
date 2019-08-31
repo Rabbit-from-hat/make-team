@@ -22,7 +22,8 @@ def default_make(ctx, party_num):
         for r in range(remainder_num):
             remainder.append(channel_mem.pop())
 
-    for i in range(party_num-1): #チーム分け
+    for i in range(party_num): #チーム分け
+        team.append("チーム"+ str(i+1))
         team.append(channel_mem[i:mem_len:party_num])
 
     team.append(remainder) #余剰分のメンバーを追加
