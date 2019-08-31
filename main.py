@@ -18,8 +18,8 @@ async def on_ready():
 
 @bot.command()
 async def team(ctx, party_num=2): #チーム作成
-        msg = grouping.default_make(ctx, party_num)
-        await ctx.channel.send(msg)
+        party_team = grouping.default_make(ctx, party_num)
+        print(party_team)
             
 # botの接続と起動
 bot.run(token)
