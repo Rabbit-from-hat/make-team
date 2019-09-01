@@ -27,4 +27,4 @@ def default_make(ctx, party_num):
         team.append("チーム"+str(i+1))
         team.extend(channel_mem[i:mem_len:party_num])
 
-    return team
+    return '\n'.join(team)
