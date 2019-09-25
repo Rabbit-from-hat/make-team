@@ -32,12 +32,16 @@ def default_make(ctx, party_num):
     if remainder_num != 0: 
         for r in range(remainder_num):
             remainder.append(channel_mem.pop())
+<<<<<<< HEAD
         team.append("=====余り=====")
+=======
+        team.append("余剰")
+>>>>>>> parent of 5a76936... チーム名の可読性修正
         team.extend(remainder)
 
     #チーム分け
     for i in range(party_num): 
-        team.append("=====チーム"+str(i+1)+"=====")
+        team.append("チーム"+str(i+1))
         team.extend(channel_mem[i:mem_len:party_num])
 
     return '\n'.join(team)
