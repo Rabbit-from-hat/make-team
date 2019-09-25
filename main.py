@@ -3,7 +3,6 @@ from discord.ext import commands
 import os
 import traceback
 import grouping
-import validation
 
 token = os.environ['DISCORD_BOT_TOKEN']
 bot = commands.Bot(command_prefix='/')
@@ -18,7 +17,6 @@ async def on_ready():
     print('------------------------')
 
 @bot.command()
-@validation.int_check
 async def team(ctx, party_num): #チーム作成
     msg = grouping.default_make(ctx, party_num)
     await ctx.channel.send(msg)
