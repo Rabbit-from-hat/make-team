@@ -22,7 +22,7 @@ async def on_ready():
 
 """コマンド実行"""
 @bot.command()
-async def team(ctx, party_num): #チーム作成
+async def team(ctx, party_num=2): #チーム作成
 
     sendact = send_message.SendMessage(ctx)
 

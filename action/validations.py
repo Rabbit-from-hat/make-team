@@ -3,13 +3,13 @@ from cerberus import Validator
 class Validations:
 
     def __init__(self):
-        self.schema = {
+        schema = {
             'num':{
                     'tpye': 'integer',
                     'min': 0,
             }
         }
-        self.vdate = Validator(self.schema)
+        self.vdate = Validator(schema)
     
     def int_check(self, party_num):
 
