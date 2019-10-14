@@ -1,6 +1,9 @@
+import random
+
 import discord
 from discord.ext import commands
-import random
+
+import validations
 
 class Grouping:
 
@@ -13,6 +16,12 @@ class Grouping:
     def default_make(self):
         team = []
         remainder = []
+
+        val = validations.Validations()
+        result = val.grouping_check(self.state, self.party_num, self.mem_len)
+
+        if not result[0]:
+            return result[1]
 
         random.shuffle(self.channel_mem)
 
@@ -29,4 +38,4 @@ class Grouping:
             team.append("=====チーム"+str(i+1)+"=====")
             team.extend(self.channel_mem[i:self.mem_len:self.party_num])
 
-        return '\n'.join(team)
+        return ('\n'.join(team))

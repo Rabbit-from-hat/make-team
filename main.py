@@ -6,10 +6,10 @@ from discord.ext import commands
 
 from action import grouping
 from action import validations
+from action import send_message
 
 token = os.environ['DISCORD_BOT_TOKEN']
 bot = commands.Bot(command_prefix='/')
-validation = validations.Validations()
 
 """起動処理"""
 @bot.event
@@ -22,10 +22,21 @@ async def on_ready():
 
 """コマンド実行"""
 @bot.command()
-@validation.int_check
 async def team(ctx, party_num): #チーム作成
-    g = grouping.Grouping(ctx, party_num)
-    await g.default_make()
+
+    sendact = send_message.SendMessage(ctx)
+
+    val = validations.Validations()
+    result = val.int_check(party_num)
+
+    if result[0]:
+        makeact = grouping.Grouping(ctx, party_num)
+        msg = makeact.default_make()
+        await sendact.default_send(msg)
+    else:
+        msg = result[1]
+        await sendact.error_send(msg)
+
 
 """botの接続と起動"""
 bot.run(token)
