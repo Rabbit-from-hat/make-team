@@ -19,10 +19,10 @@ class Grouping:
 
         # バリデーション(チーム作成可能チェック)
         val = validations.Validations()
-        result = val.grouping_check(self.state, self.party_num, self.mem_len)
+        bol, error_msg = val.grouping_check(self.state, self.party_num, self.mem_len)
 
-        if not result[0]:
-            return result[1]
+        if not bol:
+            return error_msg
 
         random.shuffle(self.channel_mem)
 
