@@ -4,7 +4,7 @@ class Validations:
 
     def __init__(self):
         schema = {
-            'party_num':{
+            'num':{
                     'tpye': 'integer',
                     'min': 0,
             }
@@ -12,8 +12,10 @@ class Validations:
         self.vdate = Validator(schema)
     
     def int_check(self, party_num):
+        
+        num = {'num': party_num}
 
-        if not self.vdate.validate(party_num):
+        if not self.vdate.validate(num):
             msg = "実行できません。整数で指定してください。"
             return 0, msg        
         return 1
