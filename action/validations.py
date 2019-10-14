@@ -4,7 +4,7 @@ class Validations:
 
     def __init__(self):
         schema = {
-            'num':{
+            'party_num':{
                     'tpye': 'integer',
                     'min': 0,
             }
