@@ -6,7 +6,7 @@ class Validations:
         schema = {
             'num':{
                     'tpye': 'integer',
-                    'min': 0,
+                    'min': 0
             }
         }
         self.vdate = Validator(schema)
