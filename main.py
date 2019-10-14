@@ -28,15 +28,14 @@ async def team(ctx, party_num=2): #チーム作成
 
     # バリデーション(整数チェック)
     val = validations.Validations()
-    bol, error_msg = val.int_check(party_num)
+    result = val.int_check(party_num)
 
-    if bol:
+    if result == 1:
         makeact = grouping.Grouping(ctx, party_num)
         msg = makeact.default_make()
         await sendact.default_send(msg)
     else:
-        msg = error_msg
-        await sendact.error_send(msg)
+        await sendact.error_send(result)
 
 """botの接続と起動"""
 bot.run(token)
