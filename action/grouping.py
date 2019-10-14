@@ -3,7 +3,7 @@ import random
 import discord
 from discord.ext import commands
 
-import validations
+from action import validations
 
 class Grouping:
 
@@ -17,6 +17,7 @@ class Grouping:
         team = []
         remainder = []
 
+        # バリデーション(チーム作成可能チェック)
         val = validations.Validations()
         result = val.grouping_check(self.state, self.party_num, self.mem_len)
 

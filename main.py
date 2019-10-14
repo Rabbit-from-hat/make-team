@@ -26,6 +26,7 @@ async def team(ctx, party_num): #チーム作成
 
     sendact = send_message.SendMessage(ctx)
 
+    # バリデーション(整数チェック)
     val = validations.Validations()
     result = val.int_check(party_num)
 
@@ -36,7 +37,6 @@ async def team(ctx, party_num): #チーム作成
     else:
         msg = result[1]
         await sendact.error_send(msg)
-
 
 """botの接続と起動"""
 bot.run(token)
