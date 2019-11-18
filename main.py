@@ -31,8 +31,8 @@ async def team(ctx, party_num=2): #チーム作成
     result = val.int_check(party_num)
 
     if result == 1:
-        makeact = grouping.Grouping(ctx, party_num)
-        msg = makeact.default_make()
+        makeact = grouping.Grouping(party_num)
+        msg = makeact.default_make(ctx)
         await sendact.default_send(msg)
     else:
         await sendact.error_send(result)
