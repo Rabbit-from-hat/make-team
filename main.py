@@ -4,9 +4,7 @@ import traceback
 import discord
 from discord.ext import commands
 
-from action import grouping
-from action import validations
-from action import send_message
+from models.grouping import MakeTeam
 
 token = os.environ['DISCORD_BOT_TOKEN']
 bot = commands.Bot(command_prefix='/')
@@ -23,19 +21,9 @@ async def on_ready():
 """コマンド実行"""
 @bot.command()
 async def team(ctx, party_num=2): #チーム作成
-
-    sendact = send_message.SendMessage(ctx)
-
-    # バリデーション(整数チェック)
-    val = validations.Validations()
-    result = val.int_check(party_num)
-
-    if result == 1:
-        makeact = grouping.Grouping(party_num)
-        msg = makeact.default_make(ctx)
-        await sendact.default_send(msg)
-    else:
-        await sendact.error_send(result)
+    make_team = MakeTeam()
+    msg = make_team.default_make(ctx,party_num)
+    await ctx.channel.send(msg)
 
 """botの接続と起動"""
 bot.run(token)
