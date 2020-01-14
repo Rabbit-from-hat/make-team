@@ -62,7 +62,7 @@ class MakeTeam:
         return ('\n'.join(team))
 
 if __name__ == '__main__':
-    token = "NjYwNzc3Mzk1MTIwNTA0ODUy.Xgh0zA.pTttrtp1UCWLteqlJYznqSWp5ss"
+    token = "token"
     bot = commands.Bot(command_prefix='/')
 
     """起動処理"""
