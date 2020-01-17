@@ -85,11 +85,7 @@ class MakeTeam:
 
 # テスト用
 if __name__ == '__main__':
-<<<<<<< HEAD
     token = "test_token" # test_tokenを利用するbotのトークンに適宜書き換え
-=======
-    token = "token"
->>>>>>> f05fe47ec8f4d6e5b54c34da1b014e5b811a1ada
     bot = commands.Bot(command_prefix='/')
 
     """起動処理"""
