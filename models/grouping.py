@@ -6,48 +6,70 @@ from cerberus import Validator
 
 class MakeTeam:
 
-    def __init__(self, party_num):
-        self.party_num = party_num
-        self.chanel_mem = []
-        schema = {
-            'num':{
-                    'type': 'integer',
-                    'min': 0
-            }
-        }
-        self.vdate = Validator(schema)
-
-    def int_check(func):
-        def wrapper(self, *args, **kwargs):
-            num = {'num': args[1]}
-            if not self.vdate.validate(num):
-                return '実行できません。整数で記載してください。'
-            msg = func(self, *args, **kwargs)
-            return msg
-        return wrapper
+    def __init__(self):
+        self.channel_mem = []
+        self.mem_len = 0
 
     def set_mem(func):
-        def wrapper(self, *args, **kwargs):
+        def decorator(self, *args, **kwargs):
             ctx = args[0]
-            state = ctx.author.voice # VCのステータスを取得
+            state = ctx.author.voice # コマンド実行者のVCステータスを取得
             if state is None: 
                 return '実行できません。ボイスチャンネルに入ってコマンドを実行してください。'
-            self.chanel_mem = [i.name for i in state.channel.members] # VCメンバリスト取得
-            msg = func(self, *args, **kwargs)
-            return msg
-        return wrapper
 
+            self.channel_mem = [i.name for i in state.channel.members] # VCメンバリスト取得
+            self.mem_len = len(self.channel_mem) # 人数取得
+
+            msg = func(self, *args, **kwargs) # チーム作成実行
+            return msg
+        return decorator
+
+    # チーム数を指定した場合のチーム分け
     @set_mem
-    @int_check
-    def default_make(self, ctx, party_num):
+    def make_party_num(self, ctx, party_num, remainder_flag='false'):
         team = []
         remainder = []
 
-        mem_len = len(self.channel_mem) # 人数取得
-        random.shuffle(self.channel_mem) # メンバーリスト内をシャッフル
+        # 指定数の確認
+        if party_num > self.mem_len or party_num < 0:
+            return '実行できません。チーム分けできる数を指定してください。(チーム数を指定しない場合は、デフォルトで2が指定されます)'
 
-        # VCの人数が割り切れない場合
-        remainder_num = mem_len % self.party_num
+        # メンバーリストをシャッフル
+        random.shuffle(self.channel_mem)
+
+        # チーム分けで余るメンバーを取得
+        if remainder_flag:
+            remainder_num = self.mem_len % party_num
+            if remainder_num != 0: 
+                for r in range(remainder_num):
+                    remainder.append(self.channel_mem.pop())
+                team.append("=====余り=====")
+                team.extend(remainder)
+
+        # チーム分け
+        for i in range(party_num): 
+            team.append("=====チーム"+str(i+1)+"=====")
+            team.extend(self.channel_mem[i:self.mem_len:party_num])
+
+        return ('\n'.join(team))
+
+    @set_mem
+    def make_specified_len(self, ctx, specified_len):
+        team = []
+        remainder = []
+
+        # 指定数の確認
+        if specified_len > self.mem_len or specified_len < 0:
+            return '実行できません。チーム分けできる数を指定してください。'
+
+        # チーム数を取得
+        party_num = self.mem_len // specified_len
+
+        # メンバーリストをシャッフル
+        random.shuffle(self.channel_mem)
+
+        # チーム分けで余るメンバーを取得
+        remainder_num = self.mem_len % party_num
         if remainder_num != 0: 
             for r in range(remainder_num):
                 remainder.append(self.channel_mem.pop())
@@ -55,14 +77,15 @@ class MakeTeam:
             team.extend(remainder)
 
         # チーム分け
-        for i in range(self.party_num): 
+        for i in range(party_num): 
             team.append("=====チーム"+str(i+1)+"=====")
-            team.extend(self.channel_mem[i:mem_len:self.party_num])
+            team.extend(self.channel_mem[i:self.mem_len:party_num])
 
         return ('\n'.join(team))
 
+# テスト用
 if __name__ == '__main__':
-    token = "NjYwNzc3Mzk1MTIwNTA0ODUy.Xgh0zA.pTttrtp1UCWLteqlJYznqSWp5ss"
+    token = "test_token" # test_tokenを利用するbotのトークンに適宜書き換え
     bot = commands.Bot(command_prefix='/')
 
     """起動処理"""
@@ -76,9 +99,22 @@ if __name__ == '__main__':
 
     """コマンド実行"""
     @bot.command()
-    async def team(ctx, party_num=2): #チーム作成
-        make_team = MakeTeam(party_num)
-        msg = make_team.default_make(ctx,party_num)
+    async def team(ctx, specified_num=2):
+        make_team = MakeTeam()
+        remainder_flag = 'true'
+        msg = make_team.make_party_num(ctx,specified_num,remainder_flag)
+        await ctx.channel.send(msg)
+
+    @bot.command()
+    async def team_norem(ctx, specified_num=2):
+        make_team = MakeTeam()
+        msg = make_team.make_party_num(ctx,specified_num)
+        await ctx.channel.send(msg)
+
+    @bot.command()
+    async def group(ctx, specified_num=1):
+        make_team = MakeTeam()
+        msg = make_team.make_specified_len(ctx,specified_num)
         await ctx.channel.send(msg)
 
     """botの接続と起動"""

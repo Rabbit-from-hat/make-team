@@ -19,10 +19,19 @@ async def on_ready():
     print('------------------------')
 
 """コマンド実行"""
+# メンバー数が均等になるチーム分け
 @bot.command()
-async def team(ctx, party_num=2): #チーム作成
+async def team(ctx, specified_num=2):
     make_team = MakeTeam()
-    msg = make_team.default_make(ctx,party_num)
+    remainder_flag = 'true'
+    msg = make_team.make_party_num(ctx,specified_num,remainder_flag)
+    await ctx.channel.send(msg)
+
+# メンバー数が均等にはならないチーム分け
+@bot.command()
+async def team_norem(ctx, specified_num=2):
+    make_team = MakeTeam()
+    msg = make_team.make_party_num(ctx,specified_num)
     await ctx.channel.send(msg)
 
 """botの接続と起動"""
