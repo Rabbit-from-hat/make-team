@@ -53,6 +53,7 @@ class MakeTeam:
 
         return ('\n'.join(team))
 
+　　# チームのメンバー数を指定した場合のチーム分け
     @set_mem
     def make_specified_len(self, ctx, specified_len):
         team = []
