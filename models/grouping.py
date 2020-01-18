@@ -10,7 +10,7 @@ class MakeTeam:
         self.channel_mem = []
         self.mem_len = 0
 
-    def set_mem(func):
+    def set_mem(self, func):
         def decorator(self, *args, **kwargs):
             ctx = args[0]
             state = ctx.author.voice # コマンド実行者のVCステータスを取得
@@ -53,7 +53,7 @@ class MakeTeam:
 
         return ('\n'.join(team))
 
-　　# チームのメンバー数を指定した場合のチーム分け
+    # チームのメンバー数を指定した場合のチーム分け
     @set_mem
     def make_specified_len(self, ctx, specified_len):
         team = []
