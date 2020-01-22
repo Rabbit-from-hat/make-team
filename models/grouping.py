@@ -9,6 +9,7 @@ class MakeTeam:
     def __init__(self):
         self.channel_mem = []
         self.mem_len = 0
+        self.vc_state_err = '実行できません。ボイスチャンネルに入ってコマンドを実行してください。'
 
     def set_mem(self, ctx):
         state = ctx.author.voice # コマンド実行者のVCステータスを取得
@@ -25,10 +26,10 @@ class MakeTeam:
         remainder = []
         
         if self.set_mem(ctx) is False:
-            return '実行できません。ボイスチャンネルに入ってコマンドを実行してください。'
+            return self.vc_state_err
 
         # 指定数の確認
-        if party_num > self.mem_len or party_num < 0:
+        if party_num > self.mem_len or party_num <= 0:
             return '実行できません。チーム分けできる数を指定してください。(チーム数を指定しない場合は、デフォルトで2が指定されます)'
 
         # メンバーリストをシャッフル
@@ -56,10 +57,10 @@ class MakeTeam:
         remainder = []
 
         if self.set_mem(ctx) is False:
-            return '実行できません。ボイスチャンネルに入ってコマンドを実行してください。'
+            return self.vc_state_err
 
         # 指定数の確認
-        if specified_len > self.mem_len or specified_len < 0:
+        if specified_len > self.mem_len or specified_len <= 0:
             return '実行できません。チーム分けできる数を指定してください。'
 
         # チーム数を取得
