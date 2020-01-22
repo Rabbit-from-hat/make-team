@@ -21,15 +21,10 @@ async def on_ready():
 """コマンド実行"""
 # メンバー数が均等になるチーム分け
 @bot.command()
-<<<<<<< HEAD
 async def team(ctx, specified_num=2):
     make_team = MakeTeam()
     remainder_flag = 'true'
     msg = make_team.make_party_num(ctx,specified_num,remainder_flag)
-=======
-async def team(ctx, party_num=2): #チーム作成
-    msg = grouping.default_make(ctx, party_num)
->>>>>>> 581e43e298a8192dc3f8dd801852d35da592c6dc
     await ctx.channel.send(msg)
 
 # メンバー数が均等にはならないチーム分け
