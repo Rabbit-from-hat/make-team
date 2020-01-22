@@ -10,25 +10,22 @@ class MakeTeam:
         self.channel_mem = []
         self.mem_len = 0
 
-    def set_mem(func):
-        def decorator(self, *args, **kwargs):
-            ctx = args[0]
-            state = ctx.author.voice # コマンド実行者のVCステータスを取得
-            if state is None: 
-                return '実行できません。ボイスチャンネルに入ってコマンドを実行してください。'
+    def set_mem(self, ctx):
+        state = ctx.author.voice # コマンド実行者のVCステータスを取得
+        if state is None: 
+            return False
 
-            self.channel_mem = [i.name for i in state.channel.members] # VCメンバリスト取得
-            self.mem_len = len(self.channel_mem) # 人数取得
-
-            msg = func(self, *args, **kwargs) # チーム作成実行
-            return msg
-        return decorator
+        self.channel_mem = [i.name for i in state.channel.members] # VCメンバリスト取得
+        self.mem_len = len(self.channel_mem) # 人数取得
+        return True
 
     # チーム数を指定した場合のチーム分け
-    @set_mem
     def make_party_num(self, ctx, party_num, remainder_flag='false'):
         team = []
         remainder = []
+        
+        if self.set_mem(ctx) is False:
+            return '実行できません。ボイスチャンネルに入ってコマンドを実行してください。'
 
         # 指定数の確認
         if party_num > self.mem_len or party_num < 0:
@@ -53,11 +50,13 @@ class MakeTeam:
 
         return ('\n'.join(team))
 
-　　# チームのメンバー数を指定した場合のチーム分け
-    @set_mem
+    # チームのメンバー数を指定した場合のチーム分け
     def make_specified_len(self, ctx, specified_len):
         team = []
         remainder = []
+
+        if self.set_mem(ctx) is False:
+            return '実行できません。ボイスチャンネルに入ってコマンドを実行してください。'
 
         # 指定数の確認
         if specified_len > self.mem_len or specified_len < 0:
