@@ -51,6 +51,10 @@ class MakeTeam:
         return ('\n'.join(team))
 
     # チームのメンバー数を指定した場合のチーム分け
+<<<<<<< HEAD
+=======
+    @set_mem
+>>>>>>> 30caaf4c1c58735c4f88198f395e1ac2bf2b2d44
     def make_specified_len(self, ctx, specified_len):
         team = []
         remainder = []
