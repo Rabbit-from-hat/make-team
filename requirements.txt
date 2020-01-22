@@ -1,2 +1,5 @@
 discord.py==1.2.5
+<<<<<<< HEAD
 cerberus
+=======
+>>>>>>> 581e43e298a8192dc3f8dd801852d35da592c6dc
