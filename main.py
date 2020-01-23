@@ -4,7 +4,7 @@ import traceback
 import discord
 from discord.ext import commands
 
-from models.grouping import MakeTeam
+from modules.grouping import MakeTeam
 
 token = os.environ['DISCORD_BOT_TOKEN']
 bot = commands.Bot(command_prefix='/')
