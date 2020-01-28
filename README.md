@@ -16,9 +16,9 @@ discord上で、チーム分けを自動で行ってくれるbotです。
 * discord.py 1.2.5
 
 # Installation
-このmake-teamをForkして、Heroku上にデプロイしてください。
-やり方は、以下の記事を参考にしてください。
-なお、Herokuではなくとも、ローカルでも実行可能です。
+このmake-teamをForkして、Heroku上にデプロイしてください。  
+やり方は、以下の記事を参考にしてください。  
+なお、Herokuではなくとも、ローカルでも実行可能です。  
 [Discord Bot 最速チュートリアル【Python&Heroku&GitHub】](https://qiita.com/1ntegrale9/items/aa4b373e8895273875a8)
 
 
