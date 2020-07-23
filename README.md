@@ -13,7 +13,7 @@ discord上で、チーム分けを自動で行ってくれるbotです。
 # Requirement
 
 * Python 3.8.1
-* discord.py 1.2.5
+* discord.py 1.3.4
 
 # Installation
 このmake-teamをForkして、Heroku上にデプロイしてください。  
